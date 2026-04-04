@@ -1,106 +1,57 @@
-# Edge Equipment Catalog
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Lucineer/capitaine/master/docs/capitaine-logo.jpg" alt="Capitaine" width="120">
+</p>
 
-**Status:** Specification / Design
-**Source:** Multi-model forum (DeepSeek-chat engineering, Kimi K2.5 boarding, DeepSeek-Reasoner architecture)
-**Date:** 2026-04-04
+<h1 align="center">edge-equipment-catalog</h1>
 
-## Overview
+<p align="center">Equipment types, compatibility matrix for edge-native fleet.</p>
 
-Modular equipment system for edge-native repo-agents. Each equipment item is a self-contained agent with defined interfaces, hardware requirements, and trust-level gating. A vessel builder selects hardware → loads universal base → equips each ESP32 with appropriate bytecode.
+---
 
-## Equipment Matrix
+**Concept repo** · Part of the [Lucineer fleet](https://github.com/orgs/Lucineer/repositories)
 
-### 1. motor-control-agent
-- **Hardware:** 2x PWM (LEDC), 2x quadrature encoder, 2x ADC (current), 1x GPIO (enable), 1x timer
-- **Trust Minimum:** L3 (Critical Control)
-- **Flash:** 48KB | **RAM:** 8KB | **PSRAM:** Not required
-- **Produces:** PWM signals, motor status, fault alerts
-- **Consumes:** Target RPM, current limits, emergency stop
-- **Coordinates With:** deep-monitor, nav-compute
-- **Core:** 1 (away from WiFi), ISR priority 1
+Research, specification, or concept exploration for the cocapn ecosystem.
 
-### 2. deep-monitor-agent
-- **Hardware:** 1x CAN (TWAI), 1x UART (Jetson alerts), 1x GPIO (heartbeat)
-- **Trust Minimum:** L2 (Monitoring)
-- **Flash:** 64KB | **RAM:** 12KB | **PSRAM:** 256KB
-- **Produces:** CAN anomaly scores, health reports, predictive failure alerts
-- **Consumes:** Raw CAN traffic, thresholds, time sync
-- **Coordinates With:** All agents (health checks), marine-bridge
-- **Core:** Either, ISR priority 2
+## The Fleet
 
-### 3. sensor-pipeline-agent
-- **Hardware:** 2x I2C, 1x I2S, 1x SPI, 4x DMA, camera interface (optional)
-- **Trust Minimum:** L2 (Monitoring)
-- **Flash:** 96KB | **RAM:** 16KB | **PSRAM:** 4MB
-- **Produces:** Filtered sensor readings, inference results, timestamped data
-- **Consumes:** Sensor config, calibration, inference models
-- **Coordinates With:** nav-compute, comms-relay
-- **Core:** 0, ISR priority 2-3
 
-### 4. nav-compute-agent
-- **Hardware:** 1x UART (GPS), 1x I2C (IMU)
-- **Trust Minimum:** L2 (Navigation)
-- **Flash:** 48KB | **RAM:** 12KB | **PSRAM:** 512KB
-- **Produces:** Position, heading, velocity, waypoint status, danger alerts
-- **Consumes:** GPS data, IMU data, waypoint list, chart data
-- **Coordinates With:** motor-control, deep-monitor, sensor-pipeline
-- **Core:** Either, ISR priority 2
+<details>
+<summary><strong>⚓ The Fleet</strong></summary>
 
-### 5. marine-bridge-agent
-- **Hardware:** 1x CAN, 1x UART, NMEA 2000 decoder
-- **Trust Minimum:** L2 (Integration)
-- **Flash:** 32KB | **RAM:** 8KB | **PSRAM:** 64KB
-- **Produces:** Translated NMEA data, autopilot commands, display data
-- **Consumes:** NMEA 2000 traffic, Seatalk NG, proprietary protocols
-- **Coordinates With:** deep-monitor, control-interface, nav-compute
-- **Core:** Either, ISR priority 3
+**Flagship vessels**
 
-### 6. comms-relay-agent
-- **Hardware:** WiFi + BLE + 1x UART
-- **Trust Minimum:** L1 (Communication)
-- **Flash:** 48KB | **RAM:** 12KB | **PSRAM:** 128KB
-- **Produces:** Routed messages, telemetry, heartbeat
-- **Consumes:** Fleet messages, routing tables, WiFi config
-- **Coordinates With:** All agents (message routing)
-- **Core:** 0 (WiFi stack), ISR priority 3
+- [cocapn.ai](https://github.com/Lucineer/capitaine)
+- [personallog.ai](https://github.com/Lucineer/personallog-ai)
+- [businesslog.ai](https://github.com/Lucineer/businesslog-ai)
+- [studylog.ai](https://github.com/Lucineer/studylog-ai)
+- [makerlog.ai](https://github.com/Lucineer/makerlog-ai)
+- [playerlog.ai](https://github.com/Lucineer/playerlog-ai)
+- [dmlog.ai](https://github.com/Lucineer/dmlog-ai)
+- [reallog.ai](https://github.com/Lucineer/reallog-ai)
+- [deckboss.ai](https://github.com/Lucineer/deckboss-ai)
 
-## Compatibility Matrix
+**Fleet services**
 
-| | motor | monitor | sensor | nav | bridge | comms |
-|---|---|---|---|---|---|---|
-| **motor** | ❌ | ⚠️ | ❌ | ✅ | ✅ | ✅ |
-| **monitor** | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **sensor** | ❌ | ✅ | ⚠️ | ✅ | ❌ | ⚠️ |
-| **nav** | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ |
-| **bridge** | ✅ | ✅ | ❌ | ✅ | ⚠️ | ✅ |
-| **comms** | ✅ | ✅ | ⚠️ | ✅ | ✅ | ❌ |
+- [Fleet Catalog](https://github.com/Lucineer/capitaine/blob/master/docs/fleet/FLEET.md)
+- [Git Agent (full)](https://github.com/Lucineer/git-agent)
+- [Cocapn Lite (minimal)](https://github.com/Lucineer/cocapn-lite)
+- [Fleet Orchestrator](https://github.com/Lucineer/fleet-orchestrator)
+- [Dead Reckoning Engine](https://github.com/Lucineer/dead-reckoning-engine)
+- [Dream Engine](https://github.com/Lucineer/dream-engine)
+- [Seed UI (5 layers)](https://github.com/Lucineer/seed-ui)
 
-✅ = compatible | ⚠️ = compatible with care | ❌ = resource conflict
+**For power users**
 
-## Key Conflicts
+- [Cocapn Lite (tabula rasa)](https://github.com/Lucineer/cocapn-lite)
+- [Cocapn (core platform)](https://github.com/Lucineer/cocapn)
+- [ZeroClaw (framework)](https://github.com/Lucineer/zeroclaw)
 
-- **Motor + Sensor:** DMA contention (6 channels total, camera needs 4-5) + PSRAM bus saturation
-- **Motor + Motor:** Timer + DMA resource conflict
-- **Sensor + Comms:** WiFi ISRs may affect DMA timing
+[View all 106 repos →](https://github.com/orgs/Lucineer/repositories)
+[Fleet manifest →](https://github.com/Lucineer/capitaine/blob/master/docs/fleet/FLEET.md)
 
-## Universal Base
+</details>
 
-All equipment shares:
-- Bootloader with capability detection (~32KB)
-- INCREMENTS trust engine
-- CAN/UART comms stack
-- OTA update mechanism
-- Watchdog management
-- Logging framework
-
-**Total shared: ~128KB flash. Equipment-specific: 16-96KB each.**
-
-## References
-
-- Edge-Native Architecture Research: `docs/EDGE-NATIVE-ARCHITECTURE-RESEARCH.md`
-- INCREMENTS Fleet Trust: `github.com/Lucineer/increments-fleet-trust`
-- Edge Boarding Protocol: `github.com/Lucineer/edge-boarding-protocol`
 
 ## License
 
-Superinstance & Lucineer (DiGennaro et al.) — 2026
+MIT · Superinstance & Lucineer (DiGennaro et al.)
