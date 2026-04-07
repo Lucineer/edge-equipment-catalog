@@ -1,57 +1,51 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Lucineer/capitaine/master/docs/capitaine-logo.jpg" alt="Capitaine" width="120">
-</p>
+# Edge Equipment Catalog
 
-<h1 align="center">edge-equipment-catalog</h1>
+You run edge hardware. You know the quiet problem: agent workloads can fail because hardware capabilities aren't formally documented.
 
-<p align="center">Equipment types, compatibility matrix for edge-native fleet.</p>
+This catalog provides a shared, structured language for edge hardware and software within distributed fleets, reducing reliance on tribal knowledge.
+
+## What this is
+A repository of JSON schemas and TypeScript types that define edge equipment (sensors, gateways, SBCs) and their compatibility rules. Agents can use this to validate workloads against node capabilities. It's designed for the Cocapn Fleet agent runtime.
+
+## What makes this different
+- **Fork-first workflow:** You start by forking. Modify only what you need, merge upstream updates when it suits you.
+- **No vendor lock:** It's a schema repository, not a service. There are no runtime dependencies.
+- **Extensible base:** Designed for you to add custom device profiles and site-specific rules.
+
+## Try the public catalog
+A live reference deployment is available:
+https://the-fleet.casey-digennaro.workers.dev/catalog
+
+## Quick start
+1. **Fork** this repository.
+2. Deploy the `schemas/` directory to any static host or import the TypeScript types directly.
+3. Extend the equipment profiles with your own hardware.
+
+## Key features
+* **Structured equipment definitions:** Machine-readable types for common edge devices.
+* **Compatibility matrix:** Rules defining which agent software can run on which hardware.
+* **Portable schemas:** Core definitions are JSON Schema and TypeScript types.
+* **Base for extension:** Add your own device profiles and driver interfaces.
+
+## Limitations
+The base catalog covers common patterns. For highly specialized hardware, you will need to define and maintain your own profiles.
+
+## Architecture
+This is a schema-first specification. It defines the shape of equipment data and compatibility rules. Agents or schedulers can load these schemas to validate deployments.
+
+## Extending the catalog
+Fork the repository and add your equipment profiles under `schemas/equipment/`. You can update from the upstream main branch when you choose to pull in new base definitions.
+
+## Contributing
+Corrections and new equipment profiles for common hardware are welcome. Please open an issue to discuss significant changes first.
+
+## License
+MIT License.
+
+Superinstance & Lucineer (DiGennaro et al.).
 
 ---
 
-**Concept repo** · Part of the [Lucineer fleet](https://github.com/orgs/Lucineer/repositories)
-
-Research, specification, or concept exploration for the cocapn ecosystem.
-
-## The Fleet
-
-
-<details>
-<summary><strong>⚓ The Fleet</strong></summary>
-
-**Flagship vessels**
-
-- [cocapn.ai](https://github.com/Lucineer/capitaine)
-- [personallog.ai](https://github.com/Lucineer/personallog-ai)
-- [businesslog.ai](https://github.com/Lucineer/businesslog-ai)
-- [studylog.ai](https://github.com/Lucineer/studylog-ai)
-- [makerlog.ai](https://github.com/Lucineer/makerlog-ai)
-- [playerlog.ai](https://github.com/Lucineer/playerlog-ai)
-- [dmlog.ai](https://github.com/Lucineer/dmlog-ai)
-- [reallog.ai](https://github.com/Lucineer/reallog-ai)
-- [deckboss.ai](https://github.com/Lucineer/deckboss-ai)
-
-**Fleet services**
-
-- [Fleet Catalog](https://github.com/Lucineer/capitaine/blob/master/docs/fleet/FLEET.md)
-- [Git Agent (full)](https://github.com/Lucineer/git-agent)
-- [Cocapn Lite (minimal)](https://github.com/Lucineer/cocapn-lite)
-- [Fleet Orchestrator](https://github.com/Lucineer/fleet-orchestrator)
-- [Dead Reckoning Engine](https://github.com/Lucineer/dead-reckoning-engine)
-- [Dream Engine](https://github.com/Lucineer/dream-engine)
-- [Seed UI (5 layers)](https://github.com/Lucineer/seed-ui)
-
-**For power users**
-
-- [Cocapn Lite (tabula rasa)](https://github.com/Lucineer/cocapn-lite)
-- [Cocapn (core platform)](https://github.com/Lucineer/cocapn)
-- [ZeroClaw (framework)](https://github.com/Lucineer/zeroclaw)
-
-[View all 106 repos →](https://github.com/orgs/Lucineer/repositories)
-[Fleet manifest →](https://github.com/Lucineer/capitaine/blob/master/docs/fleet/FLEET.md)
-
-</details>
-
-
-## License
-
-MIT · Superinstance & Lucineer (DiGennaro et al.)
+<div align="center">
+  <a href="https://the-fleet.casey-digennaro.workers.dev">The Fleet</a> • <a href="https://cocapn.ai">Cocapn</a>
+</div>
